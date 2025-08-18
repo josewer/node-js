@@ -1,66 +1,65 @@
+// servicio creado con los modulos nativos de node.js
+
 const http = require("node:http")
 const fs = require("node:fs");
-const { timeStamp } = require("node:console");
-
 
 console.clear();
 
 const port = process.env.PORT ?? 3000;
 
-const proceso = (request, response) => {
-
-    const url = request.url;
-    const method = request.method;
-
-    console.log(url);
-    console.log(method);
-
-
-    if (method === "GET") {
-        response.setHeader('Content-type', 'text-plain ; charset=utf-8');
-
-        if (url == '/') {
-            response.statusCode = 200;
+const routes = {
+    GET: {
+        "/": (_, response) => {
+            response.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
             response.end("Esta es la web de inicio");
-        }
-        else if (url == '/contacto') {
-            response.statusCode = 200;
-            response.end("Esta es la web de contacto");
-
-        } else if (url == '/imagen') {
+        },
+        "/contacto": (_, response) => {
+            response.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+            response.end("Esta es la web del contacto");
+        }, "/imagen": (_, response) => {
 
             fs.readFile('./lillo.jpg', (error, data) => {
                 if (error) {
-                    response.statusCode = 500;
-                    response.end("Ocurrio un error");
+                    response.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+                    response.end("Ocurrio un error al leer la imagen");
                 } else {
-                    response.statusCode = 200;
-                    response.setHeader('Content-type', 'image/jpg');
+                    response.writeHead(200, { "Content-Type": "image/jpeg" });
                     response.end(data);
                 }
             });
-
-        } else {
-            response.statusCode = 400;
-            response.end("Pagina no encontrada");
         }
-    } else if (method === "POST") {
-
-
-        if (url === "create") {
+    },
+    POST: {
+        "/create": (request, response) => {
             let body = "";
 
-            request.on("data", (chuck) => {
-                body += chuck;
-            });
-
+            request.on("data", (chunk) => (body += chunk));
             request.on("end", () => {
-                const data = JSON.stringify(body);
-                data.timestamp = timeStamp;
-                response.statusCode(201);
-                response.end(data);
+                try {
+                    const data = JSON.parse(body);
+                    data.hora = 2;
+                    response.writeHead(201, { "Content-Type": "application/json" });
+                    response.end(JSON.stringify(data));
+                } catch {
+                    response.writeHead(400, { "Content-Type": "text/plain" });
+                    response.end("JSON inválido");
+                }
             });
         }
+    }
+};
+
+
+const proceso = (request, response) => {
+
+    const methodRouter = routes[request.method];
+    const handler = methodRouter?.[request.url];
+
+    if (handler) {
+        handler(request, response); // ejecuta la función de la ruta
+    } else {
+        response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+        response.end("Página no encontrada");
     }
 };
 
