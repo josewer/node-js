@@ -1,0 +1,1 @@
+// Crea una función que reciba una palabra o frase y determine si es un palíndromo.

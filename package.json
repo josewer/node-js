@@ -1,0 +1,29 @@
+{
+  "name": "node-proyect",
+  "version": "1.0.0",
+  "description": "Proyect for learn node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josewer/node-js.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "José Luis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josewer/node-js/issues"
+  },
+  "homepage": "https://github.com/josewer/node-js#readme",
+  "dependencies": {
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "semistandard": "^17.0.0"
+  }
+}
