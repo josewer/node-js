@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const app = express();
 const movies = require("./peliculas.json");
 const { validarPelicula, validarParcialPelicula } = require("./schemas/movieSchema.js");
+const cors = require("cors");
 
 
 const port = process.env.PORT || 3000;
@@ -10,6 +11,9 @@ const port = process.env.PORT || 3000;
 app.disable("X-powared-by");
 
 app.use(express.json());
+
+// Lo deja todo a *
+// app.use(cors()); 
 
 // me creo un midleware para controlar el tema del cors
 app.use((req, res, next) => {
