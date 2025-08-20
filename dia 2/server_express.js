@@ -3,6 +3,8 @@ const app = express();
 
 const port = process.env.PORT ?? 3000;
 
+app.disable('x-powered-by')
+
 app.get( '/:name' , (req , res) => {
     res.send(`<h1>Hola ${req.params.name}`);
 });

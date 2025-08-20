@@ -1,0 +1,46 @@
+<html>
+
+<head>
+
+    <style>
+        img {
+            width: 250px;
+        }
+    </style>
+    <script>
+        fetch("http://localhost:3000/movies")
+            .then(res => res.json())
+            .then(movies => {
+                const html = movies.map(movie => {
+                    return `
+                        <article id=${movie.id}>
+                            <h2> ${movie.titulo} </h2>
+                            <img src=${movie.url_imagen} alt=${movie.titulo}/>
+                            <p> ${movie.descripcion}</p>
+                             <button onclick=removeMovie('${movie.id}')>Borrar</button>
+                        </article>
+                    `
+                }).join("");
+
+                document.querySelector('main').innerHTML = html;
+            });
+
+
+        function removeMovie(id) {
+            console.log(id)
+            fetch(`http://localhost:3000/movies/${id}`, {
+                method: "DELETE"
+            }).then(res => {
+                document.getElementById(id).remove();
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <main>
+        <button onclick=""> </button>
+    </main>
+</body>
+
+</html>
