@@ -1,0 +1,35 @@
+### Recuperar todas las películas
+GET http://localhost:3000/movies
+
+### Recuperar una película por id
+GET http://localhost:3000/movies/550e8400-e29b-41d4-a716-446655440000
+
+### Recuperar todas las películas por un género
+GET http://localhost:3000/movies?genero=drama
+
+### Crear una película con POST
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+  "titulo": "Frozen",
+  "director": "Chris Buck, Jennifer Lee",
+  "año": 2013,
+  "url_imagen": "https://lumiere-a.akamaihd.net/v1/images/p_frozen_2013_01_2c7c77c3.jpeg",
+  "descripcion": "Cuando una profecía condena a su reino al invierno eterno, la valiente princesa Anna se une a un deshielador, un reno y un divertido muñeco de nieve para encontrar a su hermana Elsa y salvar el reino.",
+  "puntuacion": 7.5,
+  "duracion": 102,
+  "genero": ["Animación", "Aventura", "Familiar", "Musical"]
+}
+
+
+### Borrar una película
+DELETE http://localhost:3000/movies/550e8400-e29b-41d4-a716-446655440000
+
+### Actualizar una película
+PATCH http://localhost:3000/movies/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+
+{
+  "año": 2022
+}

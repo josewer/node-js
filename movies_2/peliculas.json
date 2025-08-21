@@ -1,0 +1,58 @@
+[
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "titulo": "Inception",
+      "director": "Christopher Nolan",
+      "año": 2010,
+      "url_imagen": "https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg",
+      "descripcion": "Un ladrón que roba secretos a través de los sueños debe realizar la tarea más difícil: implantar una idea en la mente de alguien.",
+      "puntuacion": 8.8,
+      "duracion": 148,
+      "genero": ["Ciencia ficción", "Acción", "Suspenso"]
+    },
+    {
+      "id": "6fa459ea-ee8a-3ca4-894e-db77e160355e",
+      "titulo": "The Matrix",
+      "director": "Lana Wachowski, Lilly Wachowski",
+      "año": 1999,
+      "url_imagen": "https://cdn11.bigcommerce.com/s-yzgoj/images/stencil/1280x1280/products/2902988/5927078/MOVEJ8492__81968.1679575827.jpg?c=2",
+      "descripcion": "Un hacker descubre la verdad sobre su realidad y su papel en la guerra contra las máquinas que controlan a la humanidad.",
+      "puntuacion": 8.7,
+      "duracion": 136,
+      "genero": ["Ciencia ficción", "Acción"]
+    },
+    {
+      "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "titulo": "Interstellar",
+      "director": "Christopher Nolan",
+      "año": 2014,
+      "url_imagen": "https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+      "descripcion": "Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.",
+      "puntuacion": 8.6,
+      "duracion": 169,
+      "genero": ["Ciencia ficción", "Drama", "Aventura"]
+    },
+    {
+      "id": "16fd2706-8baf-433b-82eb-8c7fada847da",
+      "titulo": "Parasite",
+      "director": "Bong Joon-ho",
+      "año": 2019,
+      "url_imagen": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+      "descripcion": "Una familia pobre se infiltra en la vida de una familia rica, con consecuencias inesperadas y oscuras.",
+      "puntuacion": 8.5,
+      "duracion": 175,
+      "genero": ["Drama", "Suspenso"]
+    },
+    {
+      "id": "9b2e5d3e-45cb-4a5e-b1e1-8f3c7f6a4b2d",
+      "titulo": "The Godfather",
+      "director": "Francis Ford Coppola",
+      "año": 2019,
+      "url_imagen": "https://image.tmdb.org/t/p/w500/iVZ3JAcAjmguGPnRNfWFOtLHOuY.jpg",
+      "descripcion": "La historia épica de la familia Corleone y el ascenso de Michael Corleone como jefe de la mafia.",
+      "puntuacion": 9.2,
+      "duracion": 175,
+      "genero": ["Drama", "Crimen"]
+    }
+]
+
