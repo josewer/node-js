@@ -3,13 +3,13 @@ import db from './db.js'
 
 export class MovieModel {
 
-    static async getAll(queryParams) {
+    async getAll(queryParams) {
         const data = await db.query('SELECT * FROM movies');
         return data.rows;
     }
 
 
-    static async getById({ id }) {
+    async getById({ id }) {
         const query = `SELECT * FROM movies WHERE ID = $1`;
         const values = [id]
         const { rows } = await db.query(query, values);
@@ -17,7 +17,7 @@ export class MovieModel {
     }
 
 
-    static async delete({ id }) {
+    async delete({ id }) {
         const query = `DELETE FROM movies WHERE ID = $1 RETURNING *`;
         const values = [id]
         const { rows } = await db.query(query, values);
@@ -25,7 +25,7 @@ export class MovieModel {
     }
 
 
-    static async put({ id, input }) {
+    async put({ id, input }) {
         try {
             const {
                 titulo,
@@ -77,7 +77,7 @@ export class MovieModel {
     }
 
 
-    static async patch({ id, input }) {
+    async patch({ id, input }) {
         try {
 
             const fields = [];
@@ -118,7 +118,7 @@ export class MovieModel {
 
 
 
-    static async post({ input }) {
+    async post({ input }) {
 
         const id = crypto.randomUUID();
         const { titulo, director, año, url_imagen, descripcion, puntuacion, duracion, genero } = input;

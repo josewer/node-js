@@ -5,7 +5,7 @@ import movies from "../../../peliculas.json" with {type: "json"};
 
 export class MovieModel {
 
-    static async getAll(queryParams) {
+    async getAll(queryParams) {
 
         let filterMovies = [...movies];
 
@@ -28,13 +28,13 @@ export class MovieModel {
     }
 
 
-    static async getById({ id }) {
+    async getById({ id }) {
         const movie = movies.find(f => f.id === id);
         return movie;
     }
 
 
-    static async delete({ id }) {
+    async delete({ id }) {
         const index = movies.findIndex(f => f.id === id);
 
         if (index === -1) { return false; }
@@ -45,7 +45,7 @@ export class MovieModel {
     }
 
 
-    static async put({ id, input }) {
+    async put({ id, input }) {
 
         const index = movies.findIndex(f => f.id === id);
 
@@ -62,7 +62,7 @@ export class MovieModel {
     }
 
 
-    static async patch({ id, input }) {
+    async patch({ id, input }) {
 
         const index = movies.findIndex(f => f.id === id);
 
@@ -83,7 +83,7 @@ export class MovieModel {
     }
 
 
-    static async post({ input }) {
+    async post({ input }) {
 
         const newMovie = {
             id: crypto.randomUUID(),
