@@ -1,6 +1,7 @@
 
+import { MovieModel } from "../model/db/postgres/movie.js";
 import { validarParcialPelicula, validarPelicula } from "../schemas/movieSchema.js";
-import { MovieModel } from "../model/movie.js";
+//import { MovieModel } from "../model/db/local-storage/movie.js";
 
 export class MovieController {
 

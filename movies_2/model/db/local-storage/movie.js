@@ -1,4 +1,4 @@
-import movies from "../peliculas.json" with {type: "json"};
+import movies from "../../../peliculas.json" with {type: "json"};
 
 //import { readJson } from "../utils.js";
 //const movies = readJson("../peliculas.json");
