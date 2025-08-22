@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat — Jar jar caprio</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            /* slate-900 */
+            --panel: #111827;
+            /* gray-900 */
+            --muted: #a1a1aa;
+            /* zinc-400 */
+            --accent: #22d3ee;
+            /* cyan-400 */
+            --me: #22c55e;
+            /* green-500 */
+            --bot: #2563eb;
+            /* blue-600 */
+            --text: #e5e7eb;
+            /* gray-200 */
+            --bubble: #0b1220;
+            /* deep panel */
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: radial-gradient(1200px 800px at 20% -10%, rgba(34, 211, 238, .08), transparent),
+                radial-gradient(1200px 800px at 120% 10%, rgba(37, 99, 235, .10), transparent),
+                var(--bg);
+            color: var(--text);
+        }
+
+        .chat {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100dvh;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: 1rem 1.25rem;
+            position: sticky;
+            top: 0;
+        }
+
+        header .logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), #60a5fa);
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-size: 1.05rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            color: var(--muted);
+            font-size: .875rem;
+        }
+
+        .messages {
+            overflow: auto;
+            padding: .75rem;
+            scrollbar-gutter: stable both-edges;
+        }
+
+        ul.thread {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: .5rem;
+        }
+
+        .msg {
+            display: grid;
+            gap: .35rem;
+            max-width: 78ch;
+        }
+
+        .msg .meta {
+            font-size: .75rem;
+            color: var(--muted);
+        }
+
+        .bubble {
+            padding: .6rem .8rem;
+            background: var(--bubble);
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, .03) inset, var(--shadow);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Alignment */
+        .row {
+            display: flex;
+        }
+
+        .row.me {
+            justify-content: flex-end;
+        }
+
+        .row.me .bubble {
+            background: rgba(34, 197, 94, .1);
+            border-color: rgba(34, 197, 94, .25);
+        }
+
+        .row.bot .bubble {
+            background: rgba(37, 99, 235, .10);
+            border-color: rgba(37, 99, 235, .25);
+        }
+
+        /* Composer */
+        .composer {
+            padding: .8rem;
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(2, 6, 23, 0) 0%, rgba(2, 6, 23, .65) 30%, rgba(2, 6, 23, .85) 100%), var(--panel);
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            backdrop-filter: blur(10px);
+        }
+
+        form#composer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* centra horizontal */
+            gap: .6rem;
+            /* espacio entre input y botón */
+            max-width: 600px;
+            /* ancho máximo para no ocupar toda la pantalla */
+            margin: 0 auto;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 52px;
+            max-height: 30dvh;
+            resize: vertical;
+            padding: .75rem .9rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, .10);
+            background: rgba(255, 255, 255, .03);
+            color: var(--text);
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: rgba(34, 211, 238, .35);
+            box-shadow: 0 0 0 4px rgba(34, 211, 238, .12);
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+            padding: 0 1rem;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--accent), #60a5fa);
+            color: #06111b;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        /* Small screens */
+        @media (max-width: 640px) {
+            header {
+                padding: .75rem .9rem;
+            }
+
+            .messages {
+                padding: .5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat" role="application" aria-label="Chat demo">
+        <header>
+            <div class="logo" aria-hidden="true"></div>
+            <div>
+                <h1>Mi Chat</h1>
+                <div class="subtitle">Chat jar jar caprio</div>
+            </div>
+        </header>
+
+        <main class="messages" aria-live="polite">
+            <ul class="thread" id="thread">
+            </ul>
+        </main>
+
+        <div class="composer">
+            <form id="composer" autocomplete="off">
+                <textarea id="input" placeholder="Escribe un mensaje… (Shift+Enter para saltar de línea)"
+                    rows="2"></textarea>
+                <button id="send" type="submit" aria-label="Enviar">Enviar ▶</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const thread = document.getElementById('thread');
+        const form = document.getElementById('composer');
+        const input = document.getElementById('input');
+        const sendBtn = document.getElementById('send');
+
+        function timeNow() {
+            const d = new Date();
+            return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function appendMessage(text, who = 'me') {
+            const li = document.createElement('li');
+            li.className = `row ${who}`;
+            li.innerHTML = `
+        <div class="msg">
+          <div class="meta">${who === 'me' ? 'josewer' : 'Otro'} · ${timeNow()}</div>
+          <div class="bubble"></div>
+        </div>`;
+            li.querySelector('.bubble').textContent = text;
+            thread.appendChild(li);
+            li.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+
+        function fakeBotReply(userText) {
+            const variants = [
+                'He recibido: ' + userText,
+                'Interesante 🤔',
+                '¡Gracias por tu mensaje!',
+                'Esto es una respuesta de ejemplo.'
+            ];
+            const text = variants[Math.floor(Math.random() * variants.length)];
+            appendMessage(text, 'bot');
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = input.value.trim();
+            if (!text) return;
+            sendBtn.disabled = true;
+            appendMessage(text, 'me');
+            input.value = '';
+            input.style.height = '';
+            setTimeout(() => { fakeBotReply(text); sendBtn.disabled = false; input.focus(); }, 500);
+        });
+
+        // Enviar con Enter, salto de línea con Shift+Enter
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                form.requestSubmit();
+            }
+        });
+
+        // Auto-grow del textarea
+        input.addEventListener('input', () => {
+            input.style.height = 'auto';
+            input.style.height = Math.min(input.scrollHeight, window.innerHeight * 0.3) + 'px';
+        });
+    </script>
+</body>
+
+</html>
