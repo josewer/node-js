@@ -2,7 +2,9 @@ import express from "express";
 import morgan from "morgan";
 import { Server } from "socket.io";
 import { createServer } from 'node:http'
+import dotenv from 'dotenv'
 
+dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -12,12 +14,12 @@ const io = new Server(server);
 
 io.on("connection", (socket) => {
     console.log("un usuario se ha conectado")
-
+ 
 
     socket.on("chat message", (msg) => {
         console.log(msg);
         //socket.send("adios" , "os quiero"); // mamdo el mensaje a quien me lo envio
-        io.emit("Hola corazon" , "holaaaaa"); // le mando el mensaje a todos los conectados
+        io.emit("chat message" , msg); // le mando el mensaje a todos los conectados
     });
 
 });

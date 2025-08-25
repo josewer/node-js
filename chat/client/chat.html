@@ -15,6 +15,15 @@
 
     const socket = io();
 
+    
+    socket.on("chat message", (msg) => {
+      
+      const message = `<li>${msg}</li>`;
+      console.log(message);
+      messages.insertAdjacentHTML('beforeend' , message);
+
+    });
+
     form.addEventListener('submit', (e) => {
       e.preventDefault()
 
